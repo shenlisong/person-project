@@ -31,7 +31,7 @@ public class ClientProperties {
 
             FileInputStream inputStream = new FileInputStream(path +
                     "Client.properties");
-
+            p.load(inputStream);
         }
         catch (URISyntaxException e)
         {
