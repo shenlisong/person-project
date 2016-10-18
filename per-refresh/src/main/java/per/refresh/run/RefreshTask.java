@@ -39,7 +39,7 @@ public class RefreshTask {
                 temp = temp.trim();
                 if ((!"".equals(temp)) && (!list.contains(temp)) && (list.size() < maxSize))
                 {
-                    list.add(temp);
+                    /*list.add(temp);*/
                 }
             }
         }
