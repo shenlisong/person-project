@@ -48,6 +48,7 @@ public class RandTask implements Runnable {
             return true;
         }
         if(CollectionUtils.isEmpty(preRank) || preRank.size() != workIdList.size()){
+            preRank = currRank;
             return false;
         }
 
@@ -62,14 +63,16 @@ public class RandTask implements Runnable {
     @Override
     public void run() {
 
+        System.out.println("时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString() + "  开始：" + JSON.toJSONString(preRank));
         if(workIdList == null){
             getWorkIds();
         }
         List<Integer> rank = ReptileUtil.getRank(workIdList);
         if(!RandTask.isSameAndPreRank(rank)){
-            FileUtil.printFileString(RANKFILE, JSON.toJSONString(new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").format(new Date()))
+            FileUtil.printFileString(RANKFILE, JSON.toJSONString(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()))
                     + ":" + JSON.toJSONString(rank));
         }
+        System.out.println("结束：" + JSON.toJSONString(preRank));
     }
 
     public static void main(String[] args){

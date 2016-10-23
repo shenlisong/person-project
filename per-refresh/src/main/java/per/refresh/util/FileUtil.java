@@ -43,9 +43,9 @@ public class FileUtil {
 
         BufferedWriter bufferedWriter = null;
         try {
-             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fileName))));
-
+             bufferedWriter = new BufferedWriter(new FileWriter(fileName, true));
             bufferedWriter.write(line);
+            bufferedWriter.write("\r\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e){
