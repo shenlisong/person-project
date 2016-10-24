@@ -19,22 +19,20 @@ public class ReptileUtil {
 
     private final static String URLTEXT = "http://www.doumi.com/hz/";
 
-    private final static String WORKIDS = "workIds";
-
     public static List<Integer> getRank(List<String> workIds){
 
-        List<Integer> rankList = new ArrayList<Integer>();
+        List<Integer> workRands = new ArrayList<Integer>();
         try {
             Parser parser = null;
             parser = new Parser(new URL(URLTEXT).openConnection());
             NodeList nodeList = getAList(parser, "");
+
             for(String tmp : workIds) {
                 for (int i = 0; i < nodeList.size(); i++) {
                     Node node = nodeList.elementAt(i);
                     String url = ((LinkTag) node).getLink();
                     if (url.indexOf(tmp) != -1) {
-                        rankList.add(i + 1);
-                        break;
+                        workRands.add(i + 1);
                     }
                 }
             }
@@ -45,7 +43,7 @@ public class ReptileUtil {
             e.printStackTrace();
         }
 
-        return rankList;
+        return workRands;
     }
 
     public static NodeList getAList(Parser parser, String className) throws ParserException {

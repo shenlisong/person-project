@@ -9,22 +9,22 @@ public class FileUtil {
 
     public final static String FILENAME = "tmp.html";
 
-    public static void downloadFile(InputStream inputStream){
+    public static void downloadFile(InputStream inputStream) {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         BufferedWriter bufferedWriter = null;
         try {
-             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILENAME)));
-             String strContext = "";
-            while((strContext = bufferedReader.readLine()) != null){
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILENAME)));
+            String strContext = "";
+            while ((strContext = bufferedReader.readLine()) != null) {
                 bufferedWriter.write(strContext);
             }
             bufferedWriter.flush();
         } catch (FileNotFoundException e) {
             System.out.println("找不到文件");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("io操作失败");
-        }finally {
+        } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();
@@ -32,27 +32,49 @@ public class FileUtil {
                 if (bufferedWriter != null) {
                     bufferedWriter.close();
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("关闭流失败");
             }
         }
 
     }
 
+    public static void printFileString(final String fileName, final String line) {
 
-    public  static void deleteFile(){
+        BufferedWriter bufferedWriter = null;
+        try {
+             bufferedWriter = new BufferedWriter(new FileWriter(fileName, true));
+            bufferedWriter.write(line);
+            bufferedWriter.write("\r\n");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(bufferedWriter != null){
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-        if(fileIsExists()){
+
+    public static void deleteFile() {
+
+        if (fileIsExists()) {
             File file = new File(FILENAME);
-            if(file != null) {
+            if (file != null) {
                 file.delete();
             }
         }
 
     }
 
-    public static boolean fileIsExists(){
-        File file  = new File(FILENAME);
+    public static boolean fileIsExists() {
+        File file = new File(FILENAME);
         return file != null && file.exists();
     }
 }
